@@ -76,7 +76,7 @@ The free Render plan sleeps after 15 minutes idle, so the first request afterwar
 
 1. Create `extension/.env.production` with `VITE_API_URL=https://<your-backend>` plus the Supabase values.
 2. `cd extension && npm run package` builds and writes `dealshield-extension-v<version>.zip`. It refuses to package a build that still points at localhost.
-3. Upload the zip in the Chrome Web Store Developer Dashboard. Listing copy and permission justifications are in `docs/chrome-web-store.md`; the privacy policy is `docs/privacy-policy.md` (host it at a public URL).
+3. Upload the zip in the Chrome Web Store Developer Dashboard. Listing copy and permission justifications are in `docs/chrome-web-store.md`; the privacy policy is live at https://dealshield-site.onrender.com/privacy.html (`website/privacy.html`, kept in sync with `docs/privacy-policy.md`).
 4. In Supabase → Authentication → URL Configuration, set the Site URL to a page you control, so confirmation emails don't link to localhost.
 
 ## Project layout
@@ -85,5 +85,6 @@ The free Render plan sleeps after 15 minutes idle, so the first request afterwar
 extension/   Chrome extension (React, Vite, Tailwind, Manifest V3)
 backend/     Express API, Groq prompts, Supabase migrations, Razorpay billing
 docs/        Privacy policy and Chrome Web Store listing
+website/     Static marketing site + privacy page (Render static site dealshield-site)
 render.yaml  Render deployment blueprint
 ```

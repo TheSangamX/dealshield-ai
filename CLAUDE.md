@@ -111,6 +111,7 @@ dealshield-ai/
 ├── docs/
 │   ├── privacy-policy.md          # Privacy policy (host publicly for the Chrome Web Store)
 │   └── chrome-web-store.md        # Store listing copy, permission justifications, submit checklist
+├── website/                       # Static site on Render (dealshield-site.onrender.com): index.html, privacy.html, styles.css
 ├── .gitignore / .gitattributes
 │
 ├── extension/                     # Chrome Extension (React + Vite + Tailwind, MV3)

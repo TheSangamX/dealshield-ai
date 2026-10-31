@@ -28,7 +28,7 @@ Also included:
 • History of your recent analyses
 • Free plan with monthly analyses; Pro for unlimited
 
-DealShield only reads the thread you have open, and only sends it for analysis when you click Analyze. Privacy policy: [privacy policy URL]
+DealShield only reads the thread you have open, and only sends it for analysis when you click Analyze. Privacy policy: https://dealshield-site.onrender.com/privacy.html
 
 **Screenshots (1280×800 or 640×400, at least one):**
 1. Popup showing an open email and the Analyze button
@@ -47,7 +47,7 @@ Help users write negotiation replies to the Gmail email thread they have open, b
 
 - `storage`: Saves the user's sign-in session and the "show sidebar" setting locally.
 - Host permission `https://mail.google.com/*`: Reads the email thread the user has open, shows the DealShield sidebar in Gmail, and inserts a chosen draft into the reply box.
-- Host permission `[your backend URL]/*`: Sends the open thread to the DealShield API when the user clicks Analyze, and loads their plan and history.
+- Host permission `https://dealshield-ai.onrender.com/*`: Sends the open thread to the DealShield API when the user clicks Analyze, and loads their plan and history.
 
 **Remote code:** No, the extension doesn't use remote code. All JavaScript is bundled in the package.
 
@@ -61,7 +61,7 @@ Help users write negotiation replies to the Gmail email thread they have open, b
 - I do not use or transfer user data for purposes that are unrelated to my item's single purpose
 - I do not use or transfer user data to determine creditworthiness or for lending purposes
 
-**Privacy policy URL:** [public URL where docs/privacy-policy.md is hosted]
+**Privacy policy URL:** https://dealshield-site.onrender.com/privacy.html
 
 ## Before submitting
 
@@ -69,5 +69,5 @@ Help users write negotiation replies to the Gmail email thread they have open, b
 - [ ] `npm run package` produced the zip without the localhost warning
 - [ ] Supabase Site URL is not localhost
 - [ ] Razorpay is in live mode (or Pro upgrade is hidden by leaving the Razorpay keys unset)
-- [ ] Privacy policy is published and its placeholders filled in
+- [x] Privacy policy is published (https://dealshield-site.onrender.com/privacy.html)
 - [ ] One-time $5 Chrome Web Store developer registration fee paid
