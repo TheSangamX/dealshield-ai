@@ -11,3 +11,6 @@ dist/
 
 # Local tooling
 .claude/settings.local.json
+
+# Vite dependency cache
+.vite/
