@@ -1,10 +1,10 @@
 # DealShield AI Privacy Policy
 
-_Last updated: [publish date]_
+_Last updated: 31 October 2026_
 
 DealShield AI ("DealShield", "we") is a Chrome extension that helps salespeople reply to negotiation emails in Gmail. This policy explains what data the extension and its backend handle, why, and the choices you have.
 
-Contact: [support email]
+Contact: contact@sangamgupta.in
 
 ## What we collect and why
 
@@ -24,7 +24,7 @@ We do not collect your inbox, contacts, other emails, browsing history or locati
 
 - **Groq**: processes the email thread text to generate and fact-check the strategies.
 - **Supabase**: authentication and database (account, subscription, usage, history).
-- **Razorpay**: payment processing for Pro. Card and bank details go directly to Razorpay; we never receive them.
+- **Razorpay**: payment processing for Pro. Card, UPI and bank details go directly to Razorpay; we never receive them.
 - **Render**: hosts our backend API.
 
 Each provider handles data under its own privacy policy and only for the purpose above.
@@ -36,7 +36,7 @@ DealShield's use of information received from Google APIs and from Gmail web pag
 ## Retention and deletion
 
 - Delete any analysis from **Recent analyses** in the popup; it is removed from our database immediately.
-- To delete your account and all associated data, email [support email] from your account's address. We delete it within 30 days.
+- To delete your account and all associated data, email contact@sangamgupta.in from your account's address. We delete it within 30 days.
 - Cancelling Pro stops future charges; your account and history remain until you delete them.
 
 ## Security

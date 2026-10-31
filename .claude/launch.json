@@ -8,6 +8,12 @@
       "port": 5173
     },
     {
+      "name": "website",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["extension/node_modules/vite/bin/vite.js", "website", "--port", "5500", "--strictPort"],
+      "port": 5500
+    },
+    {
       "name": "backend",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["--prefix", "backend", "run", "dev"],

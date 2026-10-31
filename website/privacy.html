@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy — DealShield AI</title>
+    <meta name="description" content="How DealShield AI handles your data." />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="/"><img src="icon.png" alt="" />DealShield AI</a>
+        <nav class="nav-links" aria-label="Main">
+          <a href="/#features">Features</a>
+          <a href="/#pricing">Pricing</a>
+          <a href="/#faq">FAQ</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Keep in sync with docs/privacy-policy.md -->
+    <main class="legal">
+      <div class="container">
+        <article>
+          <h1>Privacy Policy</h1>
+          <p class="meta">Last updated: 31 October 2026</p>
+
+          <p>
+            DealShield AI ("DealShield", "we") is a Chrome extension that helps salespeople reply to negotiation
+            emails in Gmail. This policy explains what data the extension and its backend handle, why, and the
+            choices you have.
+          </p>
+          <p>Contact: <a href="mailto:contact@sangamgupta.in">contact@sangamgupta.in</a></p>
+
+          <h2>What we collect and why</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>When</th>
+                  <th>Why</th>
+                  <th>Stored?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Account email and password</td>
+                  <td>When you create an account</td>
+                  <td>To sign you in (handled by Supabase Auth; we never see your password)</td>
+                  <td>Yes, by Supabase Auth</td>
+                </tr>
+                <tr>
+                  <td>Content of the email thread you have open (subject, sender names and addresses, dates, message text)</td>
+                  <td>Only when you click <strong>Analyze negotiation</strong></td>
+                  <td>To generate reply strategies</td>
+                  <td>No. The message text is not stored by DealShield</td>
+                </tr>
+                <tr>
+                  <td>Generated strategies, thread subject and the other party's name and email address</td>
+                  <td>After each successful analysis</td>
+                  <td>To show your analysis history</td>
+                  <td>Yes, until you delete it</td>
+                </tr>
+                <tr>
+                  <td>Analysis count per month</td>
+                  <td>After each successful analysis</td>
+                  <td>To apply your plan's monthly limit</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Subscription status (plan, renewal date, Razorpay subscription ID)</td>
+                  <td>When you upgrade or your subscription changes</td>
+                  <td>To provide Pro features</td>
+                  <td>Yes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            The extension reads the open Gmail thread locally so it can show it in the popup. Nothing is sent to our
+            servers until you click Analyze.
+          </p>
+          <p>
+            We do not collect your inbox, contacts, other emails, browsing history or location. We don't use your
+            data for advertising, and we don't sell it.
+          </p>
+
+          <h2>Service providers</h2>
+          <ul>
+            <li><strong>Groq</strong>: processes the email thread text to generate and fact-check the strategies.</li>
+            <li><strong>Supabase</strong>: authentication and database (account, subscription, usage, history).</li>
+            <li>
+              <strong>Razorpay</strong>: payment processing for Pro. Card, UPI and bank details go directly to
+              Razorpay; we never receive them.
+            </li>
+            <li><strong>Render</strong>: hosts our backend API.</li>
+          </ul>
+          <p>Each provider handles data under its own privacy policy and only for the purpose above.</p>
+
+          <h2>Chrome Web Store Limited Use</h2>
+          <p>
+            DealShield's use of information received from Gmail web pages adheres to the
+            <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data-faq" rel="noopener">Chrome Web Store User Data Policy</a>,
+            including the Limited Use requirements. Data is used only to provide the reply-strategy feature you
+            request, is not transferred to others except the providers above as needed to provide that feature, and
+            is not used for advertising or to determine creditworthiness.
+          </p>
+
+          <h2>Retention and deletion</h2>
+          <ul>
+            <li>Delete any analysis from <strong>Recent analyses</strong> in the popup; it is removed from our database immediately.</li>
+            <li>
+              To delete your account and all associated data, email
+              <a href="mailto:contact@sangamgupta.in">contact@sangamgupta.in</a> from your account's address. We
+              delete it within 30 days.
+            </li>
+            <li>Cancelling Pro stops future charges; your account and history remain until you delete them.</li>
+          </ul>
+
+          <h2>Security</h2>
+          <p>
+            Data is sent over HTTPS. Database access is restricted with row-level security so each user can only
+            read their own records, and secret keys are kept on the server.
+          </p>
+
+          <h2>Children</h2>
+          <p>DealShield is a business tool and is not directed at children under 16.</p>
+
+          <h2>Changes</h2>
+          <p>
+            We will update this page and the "Last updated" date when this policy changes. Material changes will be
+            announced in the extension.
+          </p>
+        </article>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <span>© 2026 DealShield AI</span>
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <a href="mailto:contact@sangamgupta.in">contact@sangamgupta.in</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
