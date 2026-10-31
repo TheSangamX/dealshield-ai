@@ -1,5 +1,6 @@
 import { supabaseAdmin } from '../config/supabase.js';
 import { env } from '../config/env.js';
+import { getProPriceLabel } from './billing.service.js';
 import { countUsageThisMonth } from './usage.service.js';
 
 // null = unlimited
@@ -10,7 +11,7 @@ export const PLAN_LIMITS = {
 
 /**
  * Returns the user's effective plan and this month's usage:
- * { plan, status, currentPeriodEnd, cancelAtPeriodEnd, billingEnabled, limit, used, remaining }
+ * { plan, status, currentPeriodEnd, cancelAtPeriodEnd, billingEnabled, proPriceLabel, limit, used, remaining }
  * A Pro plan that isn't active falls back to Free limits.
  */
 export async function getAccountStatus(userId) {
@@ -24,7 +25,7 @@ export async function getAccountStatus(userId) {
   const isActivePro = subscription?.plan === 'pro' && subscription.status === 'active';
   const plan = isActivePro ? 'pro' : 'free';
   const limit = PLAN_LIMITS[plan];
-  const used = await countUsageThisMonth(userId);
+  const [used, proPriceLabel] = await Promise.all([countUsageThisMonth(userId), getProPriceLabel()]);
 
   return {
     plan,
@@ -33,6 +34,7 @@ export async function getAccountStatus(userId) {
     // Set by billing.service when the user cancels; Pro stays until the period ends.
     cancelAtPeriodEnd: isActivePro && subscription?.razorpay_status === 'cancelling',
     billingEnabled: Boolean(env.razorpayKeyId && env.razorpayKeySecret && env.razorpayPlanId),
+    proPriceLabel,
     limit,
     used,
     remaining: limit === null ? null : Math.max(limit - used, 0),

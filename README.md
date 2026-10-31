@@ -55,7 +55,7 @@ npm run test:analyze   # health 200, analyze without token 401, real Groq analyz
 
 ## Billing (Razorpay)
 
-1. Razorpay Dashboard → Subscriptions → Plans: create the Pro plan ($19/month; USD needs International Payments enabled).
+1. Razorpay Dashboard → Subscriptions → Plans: create the Pro plan (currently ₹499/month, INR). The popup reads the price from this plan. Charging in USD needs International Payments enabled.
 2. Settings → API Keys: copy the key id and secret.
 3. Settings → Webhooks: add `https://<your-backend>/api/billing/webhook` with the `subscription.*` events and a secret.
 4. Put `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_PLAN_ID`, `RAZORPAY_WEBHOOK_SECRET` in `backend/.env` (and in Render).

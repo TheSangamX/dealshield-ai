@@ -4,7 +4,6 @@ import Badge from '../components/Badge';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import { cancelPro, startProCheckout } from '../lib/api';
-import { PRO_PRICE_LABEL } from '../utils/constants';
 
 const formatDate = (iso) =>
   new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
@@ -52,7 +51,9 @@ export default function PlanCard({ account, onChanged }) {
           </span>
           <div className="min-w-0 flex-1">
             <p className="text-sm font-medium text-slate-900">Upgrade to Pro</p>
-            <p className="text-xs text-slate-500">Unlimited analyses · {PRO_PRICE_LABEL}</p>
+            <p className="text-xs text-slate-500">
+              Unlimited analyses{account.proPriceLabel ? ` · ${account.proPriceLabel}` : ''}
+            </p>
           </div>
           <Button size="sm" loading={pending} onClick={upgrade}>
             Upgrade

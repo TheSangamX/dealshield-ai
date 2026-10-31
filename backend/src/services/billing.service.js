@@ -73,6 +73,30 @@ export async function cancelProSubscription(userId) {
   await updateSubscriptionRow({ user_id: userId }, { razorpay_status: CANCELLING_STATUS });
 }
 
+let priceLabelCache = null;
+
+/** "₹499/month", read once from the Razorpay plan so the UI always matches what is charged. null if unavailable. */
+export async function getProPriceLabel() {
+  if (priceLabelCache) return priceLabelCache;
+  const razorpay = getRazorpay();
+  if (!razorpay || !env.razorpayPlanId) return null;
+  try {
+    const plan = await razorpay.plans.fetch(env.razorpayPlanId);
+    const price = new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: plan.item.currency,
+      maximumFractionDigits: plan.item.amount % 100 === 0 ? 0 : 2,
+    }).format(plan.item.amount / 100);
+    const every = plan.interval > 1 ? `${plan.interval} ` : '';
+    const unit = { daily: 'day', weekly: 'week', monthly: 'month', quarterly: 'quarter', yearly: 'year' }[plan.period] ?? plan.period;
+    priceLabelCache = `${price}/${every}${unit}`;
+    return priceLabelCache;
+  } catch (err) {
+    logger.warn(`Could not load Razorpay plan ${env.razorpayPlanId}: ${err.error?.description ?? err.message}`);
+    return null;
+  }
+}
+
 export function isValidWebhookSignature(rawBody, signature) {
   if (!env.razorpayWebhookSecret || !signature) return false;
   return Razorpay.validateWebhookSignature(rawBody, signature, env.razorpayWebhookSecret);
