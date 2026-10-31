@@ -1,0 +1,42 @@
+# Render Blueprint for the DealShield API (Dashboard → New → Blueprint → pick this repo).
+# Secrets marked `sync: false` are asked for once in the Render dashboard and never committed.
+services:
+  - type: web
+    name: dealshield-api
+    runtime: node
+    plan: free # sleeps after 15 min idle; first request then takes ~1 min. Use "starter" for always-on.
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-120b
+      - key: GROQ_REASONING_EFFORT
+        value: medium
+      - key: VERIFY_DRAFTS
+        value: "true"
+      - key: SUPABASE_URL
+        value: https://sspympkmjjzgkusrizaa.supabase.co
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: FREE_MONTHLY_ANALYSES
+        value: "10"
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_PLAN_ID
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
+      # Browsers only; the extension's background worker isn't subject to CORS.
+      - key: ALLOWED_ORIGINS
+        value: ""

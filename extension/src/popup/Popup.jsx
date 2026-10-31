@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   AlertCircle,
   Check,
@@ -15,6 +15,8 @@ import {
   Sparkles,
 } from 'lucide-react';
 import AuthPanel from './AuthPanel';
+import HistoryCard from './HistoryCard';
+import PlanCard from './PlanCard';
 import Badge from '../components/Badge';
 import Button from '../components/Button';
 import Card from '../components/Card';
@@ -24,16 +26,23 @@ import Strategies from '../sidebar/sections/Strategies';
 import { useAccount } from '../hooks/useAccount';
 import { useAuth } from '../hooks/useAuth';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard';
+import { useDeals } from '../hooks/useDeals';
 import { useGmailThread } from '../hooks/useGmailThread';
 import { useNegotiation } from '../hooks/useNegotiation';
-import { hasChromeRuntime } from '../lib/messaging';
+import { MESSAGE_TYPES, hasChromeRuntime, sendToTab } from '../lib/messaging';
 import { DEFAULT_SETTINGS, GMAIL_URL, STORAGE_KEYS } from '../utils/constants';
 
 export default function Popup() {
   const { status, thread, tab, refresh } = useGmailThread();
   const auth = useAuth();
   const { account, refresh: refreshAccount } = useAccount(auth.user);
-  const negotiation = useNegotiation({ onSuccess: refreshAccount });
+  const deals = useDeals(auth.user);
+  const { refresh: refreshDeals } = deals;
+  const onAnalyzed = useCallback(() => {
+    refreshAccount();
+    refreshDeals();
+  }, [refreshAccount, refreshDeals]);
+  const negotiation = useNegotiation({ onSuccess: onAnalyzed });
   const { reset } = negotiation;
 
   useEffect(() => {
@@ -41,6 +50,9 @@ export default function Popup() {
   }, [thread?.threadId, auth.user?.id, reset]);
 
   const showAuth = auth.isConfigured && !auth.loading && !auth.user;
+  // Insert needs the content script of the open Gmail thread.
+  const insertIntoGmail =
+    status === 'ready' && tab ? (text) => sendToTab(tab.id, { type: MESSAGE_TYPES.INSERT_DRAFT, text }) : undefined;
 
   return (
     <div className="flex w-[360px] flex-col bg-background">
@@ -49,7 +61,11 @@ export default function Popup() {
         <EmailCard status={status} thread={thread} tab={tab} onRefresh={refresh} />
         {showAuth && <AuthPanel onSignIn={auth.signIn} onSignUp={auth.signUp} />}
         {status === 'ready' && auth.user && (
-          <AnalysisPanel thread={thread} negotiation={negotiation} account={account} />
+          <AnalysisPanel thread={thread} negotiation={negotiation} account={account} onInsert={insertIntoGmail} />
+        )}
+        {auth.user && <PlanCard account={account} onChanged={refreshAccount} />}
+        {auth.user && (
+          <HistoryCard deals={deals.deals} onOpen={deals.open} onRemove={deals.remove} onInsert={insertIntoGmail} />
         )}
         <SettingsCard />
       </main>
@@ -60,11 +76,11 @@ export default function Popup() {
 
 function Header({ live }) {
   return (
-    <header className="relative overflow-hidden bg-primary px-4 pb-7 pt-4 text-white">
+    <header className="relative overflow-hidden bg-primary px-4 pb-6 pt-3 text-white">
       <div className="pointer-events-none absolute -right-10 -top-12 h-36 w-36 rounded-full bg-white/10 blur-2xl" />
       <div className="pointer-events-none absolute -bottom-16 left-10 h-28 w-28 rounded-full bg-secondary/25 blur-2xl" />
       <div className="relative flex items-center gap-3">
-        <Logo variant="glass" className="h-10 w-10" />
+        <Logo variant="glass" className="h-9 w-9" />
         <div className="min-w-0 flex-1">
           <h1 className="text-[15px] font-semibold tracking-tight">DealShield AI</h1>
           <p className="text-xs text-white/70">Negotiation copilot for Gmail</p>
@@ -139,7 +155,7 @@ function ActiveEmail({ thread, onRefresh }) {
   const senderName = latest.sender.name || latest.sender.email || 'Unknown sender';
   const words = latest.body.split(/\s+/).filter(Boolean).length;
   const count = thread.messages.length;
-  const isLong = latest.body.length > 280 || latest.body.split('\n').length > 6;
+  const isLong = latest.body.length > 220 || latest.body.split('\n').length > 5;
 
   return (
     <Card>
@@ -163,7 +179,7 @@ function ActiveEmail({ thread, onRefresh }) {
 
       <div className="mt-3 rounded-lg bg-slate-50 p-3 ring-1 ring-inset ring-slate-100">
         <p
-          className={`whitespace-pre-line text-[13px] leading-relaxed text-slate-600 ${expanded ? 'max-h-60 overflow-y-auto' : 'line-clamp-5'}`}
+          className={`whitespace-pre-line text-[13px] leading-relaxed text-slate-600 ${expanded ? 'max-h-60 overflow-y-auto' : 'line-clamp-4'}`}
         >
           {latest.body}
         </p>
@@ -193,7 +209,7 @@ function ActiveEmail({ thread, onRefresh }) {
   );
 }
 
-function AnalysisPanel({ thread, negotiation, account }) {
+function AnalysisPanel({ thread, negotiation, account, onInsert }) {
   const { status, result, error, analyze } = negotiation;
   const outOfQuota = account?.remaining === 0;
 
@@ -223,7 +239,7 @@ function AnalysisPanel({ thread, negotiation, account }) {
         </div>
       )}
 
-      <Strategies result={result} />
+      <Strategies result={result} onInsert={onInsert} />
     </>
   );
 }
@@ -246,7 +262,7 @@ function SettingsCard() {
   const [enabled, setEnabled] = useSidebarSetting();
 
   return (
-    <Card>
+    <Card className="p-3">
       <div className="flex items-center gap-3">
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
           <PanelRight className="h-4 w-4" />

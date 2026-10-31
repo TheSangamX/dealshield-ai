@@ -10,13 +10,13 @@ export const PLAN_LIMITS = {
 
 /**
  * Returns the user's effective plan and this month's usage:
- * { plan, status, limit, used, remaining }
+ * { plan, status, currentPeriodEnd, cancelAtPeriodEnd, billingEnabled, limit, used, remaining }
  * A Pro plan that isn't active falls back to Free limits.
  */
 export async function getAccountStatus(userId) {
   const { data: subscription, error } = await supabaseAdmin
     .from('subscriptions')
-    .select('plan, status, current_period_end')
+    .select('plan, status, current_period_end, razorpay_status')
     .eq('user_id', userId)
     .maybeSingle();
   if (error) throw error;
@@ -30,6 +30,9 @@ export async function getAccountStatus(userId) {
     plan,
     status: subscription?.status ?? 'active',
     currentPeriodEnd: subscription?.current_period_end ?? null,
+    // Set by billing.service when the user cancels; Pro stays until the period ends.
+    cancelAtPeriodEnd: isActivePro && subscription?.razorpay_status === 'cancelling',
+    billingEnabled: Boolean(env.razorpayKeyId && env.razorpayKeySecret && env.razorpayPlanId),
     limit,
     used,
     remaining: limit === null ? null : Math.max(limit - used, 0),

@@ -1,9 +1,25 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
+
+// Adds the backend's origin (VITE_API_URL) to host_permissions in dist/manifest.json,
+// so switching between localhost and the deployed API needs no manifest edits.
+function manifestApiPermission(apiUrl) {
+  return {
+    name: 'manifest-api-permission',
+    apply: 'build',
+    closeBundle() {
+      const file = resolve(root, 'dist/manifest.json');
+      const manifest = JSON.parse(readFileSync(file, 'utf8'));
+      manifest.host_permissions = [...new Set([...manifest.host_permissions, `${new URL(apiUrl).origin}/*`])];
+      writeFileSync(file, `${JSON.stringify(manifest, null, 2)}\n`);
+    },
+  };
+}
 
 // The extension is built in two passes (see "build" in package.json):
 //   default mode   → popup page + background service worker (ES modules)
@@ -29,8 +45,10 @@ export default defineConfig(({ mode }) => {
     };
   }
 
+  const apiUrl = loadEnv(mode, root, 'VITE_').VITE_API_URL || 'http://localhost:3000';
+
   return {
-    plugins: [react()],
+    plugins: [react(), manifestApiPermission(apiUrl)],
     build: {
       outDir: 'dist',
       emptyOutDir: false,

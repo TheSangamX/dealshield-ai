@@ -8,7 +8,8 @@
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "build": "npm run clean && vite build && vite build --mode content",
     "dev": "npm run clean && concurrently -k -n app,content \"vite build --watch\" \"vite build --watch --mode content\"",
-    "dev:ui": "vite"
+    "dev:ui": "vite",
+    "package": "npm run build && node scripts/package.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.118.0",
@@ -18,6 +19,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.7.0",
+    "archiver": "^8.0.0",
     "autoprefixer": "^10.6.2",
     "concurrently": "^10.0.6",
     "postcss": "^8.5.32",

@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import Logo from '../components/Logo';
 import DealSummary from './sections/DealSummary';
 import Strategies from './sections/Strategies';
+import { insertDraft } from '../content/gmail-composer';
 import { useNegotiation } from '../hooks/useNegotiation';
 
 // Above Gmail's own overlays.
@@ -79,7 +80,7 @@ export default function Sidebar({ thread }) {
           </div>
         )}
 
-        <Strategies result={result} />
+        <Strategies result={result} onInsert={insertDraft} />
       </div>
     </aside>
   );

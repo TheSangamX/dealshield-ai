@@ -1,3 +1,4 @@
+import { insertDraft } from './gmail-composer';
 import { createGmailObserver } from './gmail-observer';
 import { mountSidebar } from './inject';
 import { MESSAGE_TYPES } from '../lib/messaging';
@@ -19,6 +20,9 @@ observer.subscribe(() => {
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message?.type === MESSAGE_TYPES.GET_THREAD) {
     sendResponse({ thread: observer.refresh() });
+  } else if (message?.type === MESSAGE_TYPES.INSERT_DRAFT) {
+    insertDraft(message.text).then(sendResponse);
+    return true; // async response
   }
   return false;
 });

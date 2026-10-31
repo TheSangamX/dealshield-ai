@@ -9,6 +9,10 @@ export const env = {
   supabaseUrl: process.env.SUPABASE_URL || '',
   supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
   freeMonthlyLimit: Number(process.env.FREE_MONTHLY_ANALYSES) || 10,
+  razorpayKeyId: process.env.RAZORPAY_KEY_ID || '',
+  razorpayKeySecret: process.env.RAZORPAY_KEY_SECRET || '',
+  razorpayPlanId: process.env.RAZORPAY_PLAN_ID || '',
+  razorpayWebhookSecret: process.env.RAZORPAY_WEBHOOK_SECRET || '',
   allowedOrigins: (process.env.ALLOWED_ORIGINS || '')
     .split(',')
     .map((origin) => origin.trim())

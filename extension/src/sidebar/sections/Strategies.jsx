@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeftRight, Check, Copy, Shield, Timer } from 'lucide-react';
+import { ArrowLeftRight, Check, Copy, CornerDownLeft, Shield, Timer } from 'lucide-react';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard';
@@ -11,12 +11,24 @@ const STRATEGIES = [
 ];
 
 // Tabs for the three reply strategies returned by POST /api/analyze.
-export default function Strategies({ result }) {
+// onInsert(text) → Promise<{ ok, error }> adds an "Insert" button that puts the draft into Gmail.
+export default function Strategies({ result, onInsert }) {
   const [active, setActive] = useState(STRATEGIES[0].key);
   const [copied, copy] = useCopyToClipboard();
+  const [insertState, setInsertState] = useState({ status: 'idle', error: null });
   if (!result) return null;
 
   const strategy = result[active];
+
+  const insert = async () => {
+    setInsertState({ status: 'pending', error: null });
+    try {
+      const response = await onInsert(strategy.draft);
+      setInsertState(response?.ok ? { status: 'done', error: null } : { status: 'error', error: response?.error });
+    } catch {
+      setInsertState({ status: 'error', error: 'Reload the Gmail tab and try again.' });
+    }
+  };
 
   return (
     <Card className="p-0">
@@ -61,15 +73,39 @@ export default function Strategies({ result }) {
           <div className="rounded-lg border border-slate-200 bg-white">
             <div className="flex items-center justify-between border-b border-slate-100 px-3 py-1.5">
               <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Draft reply</span>
-              <Button variant="ghost" size="sm" className="h-7" onClick={() => copy(strategy.draft)}>
-                {copied ? <Check className="h-3.5 w-3.5 text-secondary" /> : <Copy className="h-3.5 w-3.5" />}
-                {copied ? 'Copied' : 'Copy'}
-              </Button>
+              <div className="flex items-center gap-1">
+                <Button variant="ghost" size="sm" className="h-7" onClick={() => copy(strategy.draft)}>
+                  {copied ? <Check className="h-3.5 w-3.5 text-secondary" /> : <Copy className="h-3.5 w-3.5" />}
+                  {copied ? 'Copied' : 'Copy'}
+                </Button>
+                {onInsert && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-7"
+                    loading={insertState.status === 'pending'}
+                    onClick={insert}
+                    title="Put this draft into Gmail's reply box"
+                  >
+                    {insertState.status === 'done' ? (
+                      <Check className="h-3.5 w-3.5 text-secondary" />
+                    ) : (
+                      insertState.status !== 'pending' && <CornerDownLeft className="h-3.5 w-3.5" />
+                    )}
+                    {insertState.status === 'done' ? 'Inserted' : 'Insert'}
+                  </Button>
+                )}
+              </div>
             </div>
             <p className="max-h-64 overflow-y-auto whitespace-pre-line p-3 text-[13px] leading-relaxed text-slate-700">
               {strategy.draft}
             </p>
           </div>
+          {insertState.status === 'error' && (
+            <p role="alert" className="text-xs text-rose-600">
+              {insertState.error}
+            </p>
+          )}
           <p className="text-[11px] leading-snug text-slate-400">
             AI draft: fill in the [brackets] and check dates, prices and promises before sending.
           </p>
