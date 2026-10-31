@@ -37,7 +37,8 @@ npm run dev                 # http://localhost:3000
 cd ../extension
 cp .env.example .env        # fill in VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY
 npm install
-npm run build               # or `npm run dev` to rebuild on change
+npm run build:local         # talks to localhost:3000; `npm run dev` rebuilds on change
+                            # (`npm run build` uses .env.production → the live API)
 ```
 
 Load the extension: `chrome://extensions` → Developer mode → **Load unpacked** → `extension/dist`. Reload any open Gmail tab.
@@ -67,7 +68,7 @@ Use Razorpay test mode keys first. Users upgrade from the popup; their plan swit
 1. Push this repository to GitHub.
 2. Render → **New → Blueprint** → select the repo. `render.yaml` defines the service.
 3. Enter the secret values Render asks for (Groq, Supabase service role, Razorpay).
-4. Note the service URL, e.g. `https://dealshield-api.onrender.com`.
+4. Note the service URL. The live one is `https://dealshield-ai.onrender.com` (service `dealshield-ai`, created in the dashboard with root directory `backend`, `npm ci`, `npm start`, health check `/api/health`).
 
 The free Render plan sleeps after 15 minutes idle, so the first request afterwards takes about a minute.
 

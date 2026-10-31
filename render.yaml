@@ -2,7 +2,7 @@
 # Secrets marked `sync: false` are asked for once in the Render dashboard and never committed.
 services:
   - type: web
-    name: dealshield-api
+    name: dealshield-ai
     runtime: node
     plan: free # sleeps after 15 min idle; first request then takes ~1 min. Use "starter" for always-on.
     rootDir: backend
