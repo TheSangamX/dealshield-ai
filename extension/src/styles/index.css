@@ -1,0 +1,17 @@
+@import './tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background font-sans text-slate-900 antialiased;
+  }
+
+  /* Shadow root in Gmail: drop inherited page styles, then apply ours. */
+  :host {
+    all: initial;
+    @apply font-sans text-slate-900 antialiased;
+  }
+}

@@ -1,0 +1,7 @@
+/* Design tokens (CLAUDE.md §3). :host makes them available inside the Gmail shadow root. */
+:root,
+:host {
+  --ds-primary: #4f46e5;
+  --ds-secondary: #10b981;
+  --ds-background: #f8fafc;
+}

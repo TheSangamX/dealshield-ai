@@ -1,0 +1,27 @@
+{
+  "name": "dealshield-extension",
+  "private": true,
+  "version": "0.1.0",
+  "description": "DealShield AI Chrome Extension — real-time sales negotiation inside Gmail",
+  "type": "module",
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && vite build && vite build --mode content",
+    "dev": "npm run clean && concurrently -k -n app,content \"vite build --watch\" \"vite build --watch --mode content\"",
+    "dev:ui": "vite"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
+    "lucide-react": "^1.66.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "autoprefixer": "^10.6.2",
+    "concurrently": "^10.0.6",
+    "postcss": "^8.5.32",
+    "tailwindcss": "^3.4.19",
+    "vite": "^6.4.5"
+  }
+}
