@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Screenshot 4 — Fact-checked</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="frames.css" />
+  </head>
+  <body>
+    <div class="frame" style="grid-template-columns: 420px 1fr; gap: 40px">
+      <div class="copy">
+        <div class="brand-row"><img src="../website/icon.png" alt="" />DealShield AI</div>
+        <h1>Fact-checked. No made-up promises.</h1>
+        <p>
+          Every draft is checked against the email. Anything only you can confirm becomes a
+          <span class="mark">[placeholder]</span> instead of a made-up promise.
+        </p>
+        <ul class="points">
+          <li>No invented deadlines or price changes</li>
+          <li>No made-up start dates</li>
+          <li>Urgency built from their own timeline</li>
+        </ul>
+      </div>
+      <div class="stage" style="justify-content: flex-start; align-items: center; gap: 22px">
+        <div class="mock" style="width: 420px; flex-shrink: 0">
+          <div class="mock-head">
+            <img src="../website/icon.png" alt="" />
+            <div><strong>DealShield AI</strong><span>Negotiation copilot for Gmail</span></div>
+            <span class="mock-live">Live</span>
+          </div>
+          <div class="mock-body">
+            <div class="mock-tabs"><span>Firm offer</span><span>Trade-off</span><span class="active">Urgency</span></div>
+            <div>
+              <div class="strategy-head">Match their pace: sign tomorrow as they proposed</div>
+              <div class="strategy-why">Loss aversion around the buyer's own deadline and the cost of deferring to Q3.</div>
+            </div>
+            <div class="mock-draft">
+              <div class="mock-draft-head">DRAFT REPLY <em>Copy · Insert ↵</em></div>
+              Hi Mark,<br /><br />You mentioned signing by tomorrow morning; deferring to Q3 would mean restarting
+              the evaluation. I can send the agreement today, and we can kick off on
+              <span class="mark">[start date]</span>.<br /><br />
+              <span class="strike">Our pricing goes up next month.</span><br /><br />Best,<br /><span class="placeholder">[Your Name]</span>
+            </div>
+          </div>
+        </div>
+        <div style="display: grid; gap: 16px">
+          <div class="callout ok" style="position: static"><b>Their timeline</b>Urgency uses the deadline Mark gave.</div>
+          <div class="callout ok" style="position: static"><b>[start date]</b>Left for you to confirm.</div>
+          <div class="callout no" style="position: static"><b>Removed</b>"Pricing goes up" wasn't in the email.</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -30,13 +30,19 @@ Also included:
 
 DealShield only reads the thread you have open, and only sends it for analysis when you click Analyze. Privacy policy: https://dealshield-site.onrender.com/privacy.html
 
-**Screenshots (1280×800 or 640×400, at least one):**
-1. Popup showing an open email and the Analyze button
-2. Strategy tabs with the Trade-off "We give / We get" boxes
-3. A draft inserted into Gmail's reply box
-4. Sidebar open inside a Gmail thread
+**Screenshots (1280×800, upload in this order):** ready in `store-assets/out/`
+1. `screenshot-1-analyze.png`: popup with an open email and the Analyze button
+2. `screenshot-2-strategies.png`: strategy tabs with the Trade-off "We give / We get" boxes
+3. `screenshot-3-insert.png`: a draft inserted into the reply box
+4. `screenshot-4-factcheck.png`: fact-check turning unsupported claims into placeholders
 
-**Small promo tile (440×280):** shield logo on indigo (#4F46E5) with "Negotiate better, right in Gmail".
+**Small promo tile (440×280):** `store-assets/out/promo-small-440x280.png`
+
+**Marquee promo tile (1400×560, optional):** `store-assets/out/promo-marquee-1400x560.png`
+
+**Store icon (128×128):** `extension/public/icons/icon128.png`
+
+To change an image, edit its HTML in `store-assets/` and run `node store-assets/capture.mjs`.
 
 ## Privacy practices tab
 
@@ -70,4 +76,5 @@ Help users write negotiation replies to the Gmail email thread they have open, b
 - [ ] Supabase Site URL is not localhost
 - [ ] Razorpay is in live mode (or Pro upgrade is hidden by leaving the Razorpay keys unset)
 - [x] Privacy policy is published (https://dealshield-site.onrender.com/privacy.html)
-- [ ] One-time $5 Chrome Web Store developer registration fee paid
+- [x] One-time $5 Chrome Web Store developer registration fee paid
+- [ ] Reviewer test account created (Supabase → Authentication → Add user, auto-confirm) and its login put in **Test instructions**

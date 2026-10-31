@@ -1,0 +1,354 @@
+/* Chrome Web Store screenshot frames (1280×800) and promo tiles. Builds on the website's tokens and mock styles. */
+@import url('../website/styles.css');
+
+html,
+body {
+  margin: 0;
+  background: #fff;
+}
+
+.frame {
+  position: relative;
+  width: 1280px;
+  height: 800px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 500px 1fr;
+  align-items: center;
+  gap: 56px;
+  padding: 0 72px;
+  background:
+    radial-gradient(circle at 85% 15%, rgb(79 70 229 / 0.16), transparent 45%),
+    radial-gradient(circle at 10% 95%, rgb(16 185 129 / 0.12), transparent 40%),
+    var(--ds-background);
+}
+
+.copy .brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.copy .brand-row img {
+  width: 36px;
+  height: 36px;
+}
+
+.copy h1 {
+  margin: 0 0 18px;
+  font-size: 52px;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+.copy p {
+  margin: 0;
+  font-size: 20px;
+  color: var(--ds-muted);
+  line-height: 1.5;
+}
+
+.points {
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  font-size: 17px;
+  color: var(--ds-text);
+}
+
+.points li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.points li::before {
+  content: '✓';
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgb(16 185 129 / 0.15);
+  color: #047857;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Popup mock sized like the real 360px popup, scaled up for legibility */
+.stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.popup {
+  width: 400px;
+  transform: scale(1.18);
+  transform-origin: center;
+}
+
+.mock-body .btn {
+  width: 100%;
+  height: 42px;
+  font-size: 14px;
+}
+
+.usage {
+  margin: -4px 0 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--ds-subtle);
+}
+
+.sender {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgb(79 70 229 / 0.1);
+  color: var(--ds-primary);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.sender b {
+  display: block;
+  font-size: 14px;
+  color: var(--ds-text);
+}
+
+.sender span {
+  font-size: 12px;
+  color: var(--ds-subtle);
+}
+
+.subject {
+  margin: 10px 0 2px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ds-text);
+}
+
+.chips {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.chip {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #f1f5f9;
+  color: var(--ds-muted);
+}
+
+.chip.indigo {
+  background: rgb(79 70 229 / 0.1);
+  color: var(--ds-primary);
+}
+
+.strategy-head {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ds-text);
+}
+
+.strategy-why {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ds-subtle);
+}
+
+.mark {
+  background: rgb(79 70 229 / 0.12);
+  color: var(--ds-primary);
+  border-radius: 4px;
+  padding: 0 3px;
+  font-weight: 600;
+}
+
+/* Generic email reply window (no third-party branding) */
+.mail {
+  width: 640px;
+  background: #fff;
+  border: 1px solid var(--ds-border);
+  border-radius: 18px;
+  box-shadow: 0 30px 60px rgb(15 23 42 / 0.12);
+  overflow: hidden;
+  font-size: 15px;
+}
+
+.mail-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--ds-border);
+  background: #f8fafc;
+  font-size: 13px;
+  color: var(--ds-muted);
+}
+
+.mail-bar i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #e2e8f0;
+}
+
+.mail-thread {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--ds-border);
+  color: var(--ds-muted);
+  font-size: 14px;
+}
+
+.mail-thread b {
+  color: var(--ds-text);
+}
+
+.mail-reply {
+  padding: 18px 22px 22px;
+}
+
+.reply-to {
+  font-size: 13px;
+  color: var(--ds-subtle);
+  margin-bottom: 10px;
+}
+
+.reply-body {
+  position: relative;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 2px solid rgb(79 70 229 / 0.45);
+  background: rgb(79 70 229 / 0.03);
+  color: var(--ds-text);
+  line-height: 1.55;
+}
+
+.reply-body .sig {
+  margin-top: 12px;
+  color: var(--ds-subtle);
+  font-size: 13px;
+}
+
+.send-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.send {
+  padding: 8px 22px;
+  border-radius: 999px;
+  background: var(--ds-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.toast {
+  position: absolute;
+  top: -18px;
+  right: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--ds-secondary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgb(16 185 129 / 0.35);
+}
+
+/* Callouts for the fact-check frame */
+.callout {
+  position: absolute;
+  max-width: 230px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid var(--ds-border);
+  box-shadow: 0 16px 32px rgb(15 23 42 / 0.12);
+  font-size: 13px;
+  color: var(--ds-muted);
+}
+
+.callout b {
+  display: block;
+  color: var(--ds-text);
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.callout.ok b::before {
+  content: '✓ ';
+  color: var(--ds-secondary);
+}
+
+.callout.no b::before {
+  content: '✕ ';
+  color: #e11d48;
+}
+
+.strike {
+  text-decoration: line-through;
+  text-decoration-color: #e11d48;
+  color: var(--ds-subtle);
+}
+
+/* Promo tiles */
+.tile {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  background:
+    radial-gradient(circle at 90% 10%, rgb(255 255 255 / 0.18), transparent 40%),
+    radial-gradient(circle at 0% 100%, rgb(16 185 129 / 0.35), transparent 45%),
+    var(--ds-primary);
+}
+
+.tile .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.tile .logo img {
+  border-radius: 10px;
+  background: rgb(255 255 255 / 0.15);
+}
+
+.tile h1 {
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.tile p {
+  margin: 0;
+  opacity: 0.85;
+}
