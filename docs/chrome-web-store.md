@@ -65,8 +65,8 @@ Help users write negotiation replies to the Gmail email thread they have open, b
 
 ## Before submitting
 
-- [ ] Backend deployed and `VITE_API_URL` in `extension/.env.production` points at it
-- [ ] `npm run package` produced the zip without the localhost warning
+- [x] Backend deployed (https://dealshield-ai.onrender.com) and `VITE_API_URL` in `extension/.env.production` points at it
+- [x] `npm run package` produced the zip without the localhost warning
 - [ ] Supabase Site URL is not localhost
 - [ ] Razorpay is in live mode (or Pro upgrade is hidden by leaving the Razorpay keys unset)
 - [x] Privacy policy is published (https://dealshield-site.onrender.com/privacy.html)
