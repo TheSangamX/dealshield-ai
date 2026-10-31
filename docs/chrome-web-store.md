@@ -69,6 +69,10 @@ Help users write negotiation replies to the Gmail email thread they have open, b
 
 **Privacy policy URL:** https://dealshield-site.onrender.com/privacy.html
 
+**Support URL (Store listing tab):** https://dealshield-site.onrender.com/support.html
+
+**Publisher contact email:** set and verify it in the Developer Dashboard → Settings (account level) before submitting.
+
 ## Before submitting
 
 - [x] Backend deployed (https://dealshield-ai.onrender.com) and `VITE_API_URL` in `extension/.env.production` points at it
