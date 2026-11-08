@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "DealShield AI",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Real-time sales negotiation copilot inside Gmail.",
   "icons": {
     "16": "icons/icon16.png",
@@ -23,11 +23,19 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://mail.google.com/*"],
-      "js": ["content.js"],
+      "matches": [
+        "https://mail.google.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_idle"
     }
   ],
-  "permissions": ["storage"],
-  "host_permissions": ["https://mail.google.com/*"]
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://mail.google.com/*"
+  ]
 }

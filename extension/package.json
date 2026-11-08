@@ -1,7 +1,7 @@
 {
   "name": "dealshield-extension",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DealShield AI Chrome Extension — real-time sales negotiation inside Gmail",
   "type": "module",
   "scripts": {

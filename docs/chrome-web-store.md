@@ -13,6 +13,8 @@ Negotiation copilot for Gmail: turn tough pricing emails into a firm offer, a sm
 
 **Description:**
 
+DATA DISCLOSURE: When you click Analyze negotiation, DealShield sends the open Gmail thread (subject, names and email addresses of the people on it, dates and message text) to our server and to Groq, our AI provider, to generate reply drafts. We store your account email, plan and usage, plus your analysis history (subject, the other person's name and email, and the drafts). The email text is not stored. Payments are handled by Razorpay. We do not sell your data or use it for ads. The extension asks for your consent before any data is sent.
+
 DealShield AI sits inside Gmail and helps you answer the emails that decide deals: discount requests, competitor quotes, budget pushback and "sign today" pressure.
 
 Open an email and click Analyze negotiation. DealShield reads the thread and gives you three reply strategies built on negotiation psychology:

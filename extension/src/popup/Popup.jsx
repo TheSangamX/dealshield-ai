@@ -20,12 +20,14 @@ import PlanCard from './PlanCard';
 import Badge from '../components/Badge';
 import Button from '../components/Button';
 import Card from '../components/Card';
+import DataConsent from '../components/DataConsent';
 import Logo from '../components/Logo';
 import Toggle from '../components/Toggle';
 import Strategies from '../sidebar/sections/Strategies';
 import { useAccount } from '../hooks/useAccount';
 import { useAuth } from '../hooks/useAuth';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard';
+import { useDataConsent } from '../hooks/useDataConsent';
 import { useDeals } from '../hooks/useDeals';
 import { useGmailThread } from '../hooks/useGmailThread';
 import { useNegotiation } from '../hooks/useNegotiation';
@@ -35,6 +37,7 @@ import { DEFAULT_SETTINGS, GMAIL_URL, STORAGE_KEYS } from '../utils/constants';
 export default function Popup() {
   const { status, thread, tab, refresh } = useGmailThread();
   const auth = useAuth();
+  const consent = useDataConsent();
   const { account, refresh: refreshAccount } = useAccount(auth.user);
   const deals = useDeals(auth.user);
   const { refresh: refreshDeals } = deals;
@@ -59,8 +62,9 @@ export default function Popup() {
       <Header live={status === 'ready'} />
       <main className="relative -mt-3 flex flex-col gap-3 px-4 pb-4">
         <EmailCard status={status} thread={thread} tab={tab} onRefresh={refresh} />
-        {showAuth && <AuthPanel onSignIn={auth.signIn} onSignUp={auth.signUp} />}
-        {status === 'ready' && auth.user && (
+        {!consent.loading && !consent.granted && <DataConsent onAccept={consent.accept} />}
+        {consent.granted && showAuth && <AuthPanel onSignIn={auth.signIn} onSignUp={auth.signUp} />}
+        {consent.granted && status === 'ready' && auth.user && (
           <AnalysisPanel thread={thread} negotiation={negotiation} account={account} onInsert={insertIntoGmail} />
         )}
         {auth.user && <PlanCard account={account} onChanged={refreshAccount} />}

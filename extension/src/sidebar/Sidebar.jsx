@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { AlertCircle, Sparkles, X } from 'lucide-react';
 import Button from '../components/Button';
+import DataConsent from '../components/DataConsent';
 import Logo from '../components/Logo';
 import DealSummary from './sections/DealSummary';
 import Strategies from './sections/Strategies';
 import { insertDraft } from '../content/gmail-composer';
+import { useDataConsent } from '../hooks/useDataConsent';
 import { useNegotiation } from '../hooks/useNegotiation';
 
 // Above Gmail's own overlays.
@@ -12,6 +14,7 @@ const Z_TOP = 'z-[2147483000]';
 
 export default function Sidebar({ thread }) {
   const [open, setOpen] = useState(false);
+  const consent = useDataConsent();
   const { status, result, error, errorCode, analyze, reset } = useNegotiation();
 
   useEffect(() => {
@@ -56,16 +59,19 @@ export default function Sidebar({ thread }) {
       <div className="flex-1 space-y-3 overflow-y-auto p-4">
         <DealSummary thread={thread} />
 
-        <Button
-          size="lg"
-          className="w-full"
-          disabled={!thread}
-          loading={status === 'loading'}
-          onClick={() => analyze(thread)}
-        >
-          {status !== 'loading' && <Sparkles className="h-4 w-4" />}
-          {status === 'loading' ? 'Analyzing…' : result ? 'Re-analyze' : 'Analyze negotiation'}
-        </Button>
+        {!consent.loading && !consent.granted && <DataConsent onAccept={consent.accept} />}
+        {consent.granted && (
+          <Button
+            size="lg"
+            className="w-full"
+            disabled={!thread}
+            loading={status === 'loading'}
+            onClick={() => analyze(thread)}
+          >
+            {status !== 'loading' && <Sparkles className="h-4 w-4" />}
+            {status === 'loading' ? 'Analyzing…' : result ? 'Re-analyze' : 'Analyze negotiation'}
+          </Button>
+        )}
 
         {error && (
           <div

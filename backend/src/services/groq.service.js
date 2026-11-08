@@ -112,7 +112,8 @@ function safeParseJson(text) {
   }
 }
 
-// Map SDK errors for the client; the original stays on `cause` for logs.
+// Map SDK errors for the client. `cause` goes to the logs, so it carries only the status and
+// code: Groq's error messages can quote generated text, and email content must not be logged.
 function toHttpError(err) {
   let httpError;
   // Groq also reports tokens-per-minute overruns as non-429 errors with this code.
@@ -127,6 +128,6 @@ function toHttpError(err) {
   } else {
     return err;
   }
-  httpError.cause = err;
+  httpError.cause = new Error(`Groq ${err.status ?? 'connection error'} ${err.error?.error?.code ?? ''}`.trim());
   return httpError;
 }

@@ -146,6 +146,7 @@ dealshield-ai/
 │   │   ├── components/            # Reusable UI primitives (token-styled)
 │   │   │   ├── Button.jsx
 │   │   │   ├── Card.jsx
+│   │   │   ├── DataConsent.jsx    # Data notice + "I agree", required before sign-up or Analyze
 │   │   │   ├── Badge.jsx
 │   │   │   ├── Logo.jsx           # Shield brand mark (solid / glass variants)
 │   │   │   ├── Spinner.jsx
@@ -154,6 +155,7 @@ dealshield-ai/
 │   │   │   ├── useAccount.js      # Plan + monthly usage from GET /api/me
 │   │   │   ├── useAuth.js         # Supabase session, signIn / signUp / signOut
 │   │   │   ├── useCopyToClipboard.js
+│   │   │   ├── useDataConsent.js  # Consent state in chrome.storage, shared by popup and sidebar
 │   │   │   ├── useDeals.js        # History from /api/deals: list, open, delete
 │   │   │   ├── useGmailThread.js  # Current thread context from the content script
 │   │   │   └── useNegotiation.js  # Calls the backend for analysis / suggestions
@@ -248,4 +250,5 @@ dealshield-ai/
 - **Plans:** `free` gets `FREE_MONTHLY_ANALYSES` per calendar month (UTC), `pro` with `status = 'active'` is unlimited. Plans live in `public.subscriptions` and are written only by the backend (service role); clients can only read their own rows (RLS).
 - **Billing (Razorpay):** `POST /api/billing/subscribe` creates a subscription on `RAZORPAY_PLAN_ID` (Pro, ₹499/month INR; `/api/me` returns its price as `proPriceLabel`) and returns `{ checkoutUrl }`, Razorpay's hosted page, which the popup opens in a tab. The plan changes only from the signed `POST /api/billing/webhook` (`subscription.*` events; raw body, verified with `RAZORPAY_WEBHOOK_SECRET`): `active` → Pro, `pending`/`halted`/`paused` → past_due (Free limits), `cancelled`/`completed`/`expired` → Free. `POST /api/billing/cancel` cancels at the end of the period (`razorpay_status = 'cancelling'`, Pro stays until then). Without Razorpay keys, billing routes return 503 and the popup hides the upgrade card (`account.billingEnabled`).
 - **Manifest V3:** minimal permissions; `host_permissions` is `https://mail.google.com/*` in `public/manifest.json`, and the build adds the `VITE_API_URL` origin. No remote code execution. Gmail selectors avoid aria-labels and tooltips (Gmail localizes them) where a class or attribute works.
+- **User data disclosure:** no user data leaves the browser before the user accepts `DataConsent` (Chrome Web Store prominent disclosure policy, violation "Purple Nickel"). Any change to what is collected, stored or shared must update `DataConsent.jsx`, the store listing notice, `docs/privacy-policy.md` and `website/privacy.html`. Never log email content or Groq error messages (they can quote generated text).
 - **Env vars:** extension vars use the `VITE_` prefix and are public. Anything secret belongs in the backend.
