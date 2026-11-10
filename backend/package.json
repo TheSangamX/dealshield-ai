@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "description": "DealShield AI API server — negotiation analysis with Groq",
+  "license": "UNLICENSED",
   "type": "module",
   "main": "src/server.js",
   "engines": {

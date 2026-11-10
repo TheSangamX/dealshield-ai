@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.1",
   "description": "DealShield AI Chrome Extension — real-time sales negotiation inside Gmail",
+  "license": "UNLICENSED",
   "type": "module",
   "scripts": {
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",

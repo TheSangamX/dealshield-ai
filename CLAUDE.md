@@ -106,6 +106,7 @@ export default {
 ```
 dealshield-ai/
 ├── CLAUDE.md                      # This file — single source of truth
+├── LICENSE                        # All rights reserved (source-available, public repo)
 ├── README.md                      # Setup, tests, billing, deploy and publishing steps
 ├── render.yaml                    # Render Blueprint for the backend
 ├── docs/

@@ -1,8 +1,34 @@
 # DealShield AI
 
-**[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/kbpklkipafiimileagddpmbljlmgofia)** · [Website](https://dealshield-site.onrender.com)
+**Negotiation copilot for Gmail.** Open a tough email from a prospect, click **Analyze negotiation**, and get three fact-checked reply strategies, ready to insert into Gmail.
 
-A Chrome extension for real-time sales negotiation inside Gmail. Open an email from a prospect, click **Analyze negotiation**, and get three reply strategies: a firm offer, a creative trade-off and an urgency draft. Insert one straight into Gmail's reply box.
+**[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/kbpklkipafiimileagddpmbljlmgofia)** · [Website](https://dealshield-site.onrender.com) · [Privacy policy](https://dealshield-site.onrender.com/privacy.html)
+
+![DealShield AI](store-assets/out/promo-marquee-1400x560.png)
+
+## What it does
+
+- **Three strategies per email:** a firm offer that holds your price, a creative trade-off that spells out the give and the get, and an urgency draft built from the timeline the prospect already gave.
+- **Fact-checked drafts:** a second AI pass compares every draft with the email and turns invented deadlines, price changes or start dates into `[placeholders]` for you to confirm.
+- **Insert into Gmail:** one click puts the draft into the reply box, above your signature.
+- **Sidebar and history:** a panel inside Gmail threads, and past analyses you can reopen.
+- **Free and Pro plans:** 10 analyses a month free; Pro (₹499/month) is unlimited, billed with Razorpay subscriptions.
+- **Privacy first:** nothing leaves the browser until the user agrees to a data notice and clicks Analyze, and the email text is never stored.
+
+| Analyze | Strategies | Insert | Fact-check |
+|---|---|---|---|
+| ![Analyze](store-assets/out/screenshot-1-analyze.png) | ![Strategies](store-assets/out/screenshot-2-strategies.png) | ![Insert](store-assets/out/screenshot-3-insert.png) | ![Fact-check](store-assets/out/screenshot-4-factcheck.png) |
+
+## Tech stack
+
+| Part | Built with |
+|---|---|
+| Extension | Chrome Manifest V3, React 19, Vite, Tailwind CSS, Shadow DOM sidebar |
+| Backend | Node.js 22, Express 5, Zod validation, rate limiting |
+| AI | Groq (`openai/gpt-oss-120b`) with strict JSON-schema output and a fact-check pass |
+| Auth and data | Supabase Auth and Postgres with row-level security |
+| Payments | Razorpay subscriptions with signed webhooks |
+| Hosting | Render (API and static website) |
 
 `CLAUDE.md` is the source of truth for architecture, conventions and the API contract.
 
@@ -88,5 +114,12 @@ extension/   Chrome extension (React, Vite, Tailwind, Manifest V3)
 backend/     Express API, Groq prompts, Supabase migrations, Razorpay billing
 docs/        Privacy policy and Chrome Web Store listing
 website/     Static marketing site + privacy page (Render static site dealshield-site)
+store-assets/ Chrome Web Store screenshots and promo tiles (HTML frames → PNG)
 render.yaml  Render deployment blueprint
 ```
+
+## License
+
+Copyright © 2026 Sangam Gupta. All rights reserved. The source is public so it can be read; it may not be copied, modified, redistributed or used without written permission. See [LICENSE](LICENSE). To use DealShield, [install it from the Chrome Web Store](https://chromewebstore.google.com/detail/kbpklkipafiimileagddpmbljlmgofia).
+
+Contact: contact@sangamgupta.in
