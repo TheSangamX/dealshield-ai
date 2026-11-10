@@ -1,5 +1,7 @@
 # Chrome Web Store listing
 
+**Live listing:** https://chromewebstore.google.com/detail/kbpklkipafiimileagddpmbljlmgofia (v0.1.1, published 2026-11-10; v0.1.0 was rejected for "Purple Nickel", see CLAUDE.md §5).
+
 Copy for the Developer Dashboard. Fill in the bracketed parts before submitting.
 
 ## Store listing

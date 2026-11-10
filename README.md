@@ -1,5 +1,7 @@
 # DealShield AI
 
+**[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/kbpklkipafiimileagddpmbljlmgofia)** · [Website](https://dealshield-site.onrender.com)
+
 A Chrome extension for real-time sales negotiation inside Gmail. Open an email from a prospect, click **Analyze negotiation**, and get three reply strategies: a firm offer, a creative trade-off and an urgency draft. Insert one straight into Gmail's reply box.
 
 `CLAUDE.md` is the source of truth for architecture, conventions and the API contract.
